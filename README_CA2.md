@@ -55,6 +55,30 @@ This result demonstrates that the model is effective at distinguishing between s
 Although the model performs well, it relies on basic word frequency features and does not consider word order or semantic meaning.
 Future improvements could include using more advanced text preprocessing techniques, such as TF-IDF, n-grams, or alternative machine learning models.
 
+## Weaknesses of the Current Implementation
+
+Despite achieving strong accuracy, the original implementation has several limitations:
+
+- **Partial Email Reading:** Only a specific line from each email is processed, which may ignore useful information and reduce accuracy.  
+- **Slow Feature Extraction:** Nested loops compare every email word against 3,000 dictionary words, leading to inefficient performance.  
+- **Minimal Text Cleaning:** Case sensitivity (e.g., "Free" vs "free") introduces noise into the dataset.  
+- **No Encoding Handling:** Emails containing special characters may cause decoding issues across systems.  
+- **Model Misalignment:** Gaussian Naive Bayes assumes continuous data, making it less appropriate for discrete word-count features.
+
+---
+
+## Improved Design and Implementation
+
+A more efficient and scalable approach includes:
+
+- Converting text to lowercase with consistent preprocessing  
+- Using **TF-IDF vectorization** instead of manual dictionary creation  
+- Replacing Gaussian Naive Bayes with **Multinomial Naive Bayes**, which is better suited for text data  
+- Implementing a **Scikit-learn Pipeline** to streamline feature extraction and classification  
+- Optionally evaluating additional metrics such as precision and recall  
+
+These improvements result in faster execution, cleaner code, and a model better aligned with text classification best practices.
+
 
 ## Acknowledgements
 This project was completed as part of a machine learning coursework assignment. The implementation follows the structure and guidelines provided in the course materials.
